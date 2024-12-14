@@ -1,7 +1,6 @@
 import { Board } from './Board';
 import { Colors } from "./Colors";
 import { Figure } from './figures/Figure';
-import { fireEvent } from '@testing-library/react';
 
 export class Cell {
     readonly x: number;
