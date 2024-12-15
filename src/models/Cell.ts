@@ -63,7 +63,24 @@ export class Cell {
         }
 
         return true;
+    }  
+    isEmptyForKing(target: Cell): boolean {
+
+        const absX = Math.abs(target.x - this.x);
+        const absY = Math.abs(target.y - this.y);
+
+        if(absX <= 1 && absY <=1) {
+            const targetCell = this.board.getCell(target.x, target.y);
+            
+            if(targetCell.isEmpty() || !targetCell.isEnemy(targetCell)) {
+                return true;
+            }
+        }
+        
+        return false;
     }
+
+
     isEmptyDiagonal(target: Cell): boolean {
 
         const absX = Math.abs(target.x -this.x);
@@ -88,9 +105,21 @@ export class Cell {
         this.figure = figure;
         this.figure.cell = this;
     }
+
+    addLostFigure(figure: Figure) {
+        figure.color === Colors.BLACK
+        ? this.board.lostBlackFigures.push(figure)
+        : this.board.lostWhiteFigures.push(figure);
+    }
+
     moveFigure(target: Cell) {
         if(this.figure && this.figure.canMove(target)) {
             this.figure.moveFigure(target);
+               
+            if(target.figure) {
+                this.addLostFigure(target.figure);
+            }
+
             target.setFigure(this.figure);
             this.figure = null;
         }
