@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import "./App.css"
-import BoardComponent from "./components/BoardComponent"
+import {BoardComponent} from "./components/BoardComponent"
 import { Board } from "./models/Board";
 import { Player } from "./models/Player";
 import { Colors } from "./models/Colors";
-import LostFigures from "./components/LostFigures";
+import {LostFigures} from "./components/LostFigures";
 import Timer from "./components/Timer";
+import { BoardLostFigures } from "./components/BoardLostFigures";
 
 function App() {
 
@@ -37,18 +38,7 @@ function App() {
         swapPlayer={swapPlayer}
         currentPlayer={currentPlayer}
         />
-        <div className="flex flex-row h-20">
-        <LostFigures
-          title="Черные фигуры"
-          figures={board.lostBlackFigures}
-        
-        />
-        <LostFigures
-          title="Белые"
-          figures={board.lostWhiteFigures}
-        
-        />
-        </div>
+        <BoardLostFigures board={board}/>
       </div>
       
   )
