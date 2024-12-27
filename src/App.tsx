@@ -4,8 +4,7 @@ import {BoardComponent} from "./components/BoardComponent"
 import { Board } from "./models/Board";
 import { Player } from "./models/Player";
 import { Colors } from "./models/Colors";
-import {LostFigures} from "./components/LostFigures";
-import Timer from "./components/Timer";
+import { Timer } from "./components/Timer";
 import { BoardLostFigures } from "./components/BoardLostFigures";
 
 function App() {
@@ -38,7 +37,9 @@ function App() {
         swapPlayer={swapPlayer}
         currentPlayer={currentPlayer}
         />
-        <BoardLostFigures board={board}/>
+        <BoardLostFigures 
+        board={board}
+        />
       </div>
       
   )

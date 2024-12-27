@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Board } from "../models/Board";
 import {CellComponent } from "./CellComponent";
 import { Cell } from "../models/Cell";
@@ -46,7 +46,7 @@ export const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, 
             <h3 className="p-3 mb-5 font-extrabold text-4xl flex flex-col text-center">Ход игрока {currentPlayer?.color}</h3>
         <div className="board">
             {board.cells.map((row,index) => 
-            <React.Fragment key = {index}>
+            <div className="flex flex-row" key = {index}>
                 {row.map(cell =>
                     <CellComponent
                     click={click}
@@ -55,8 +55,7 @@ export const BoardComponent: FC<BoardProps> = ({board, setBoard, currentPlayer, 
                     selected={cell.x === selectedCell?.x && cell.y === selectedCell?.y}
                     />
                 )}
-
-            </React.Fragment>
+            </div>
         )}
         </div>
         </div>

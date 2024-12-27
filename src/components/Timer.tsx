@@ -8,7 +8,7 @@ interface TimerProps {
 }
 
 
-const Timer: FC<TimerProps> = ({currentPlayer, restart}) => {
+export const Timer: FC<TimerProps> = ({currentPlayer, restart}) => {
     const [blackTime, setBlackTime] = useState(300);
     const [whiteTime, setWhiteTime] = useState(300);
     const timer = useRef<null | ReturnType<typeof setInterval>>(null)
@@ -51,5 +51,3 @@ const Timer: FC<TimerProps> = ({currentPlayer, restart}) => {
         </div>
     );
 };
-
-export default Timer;
