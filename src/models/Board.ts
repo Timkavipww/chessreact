@@ -1,7 +1,7 @@
 import { Cell } from "./Cell";
 import { Colors } from "./Colors";
 import { Bishop } from "./figures/Bishop";
-import { Figure } from './figures/Figure';
+import { Figure, FigureNames } from './figures/Figure';
 import { King } from "./figures/King";
 import { Knight } from "./figures/Knight";
 import { Pawn } from "./figures/Pawn";
@@ -26,6 +26,40 @@ export class Board {
             this.cells.push(row);
         }
     }
+    public isCheck(color: Colors): boolean {
+        let kingCell: Cell | null = null;
+    
+        // Найти клетку с королем указанного цвета
+        for (let i = 0; i < this.cells.length; i++) {
+            for (let j = 0; j < this.cells[i].length; j++) {
+                const cell = this.cells[i][j];
+                if (cell.figure?.name === FigureNames.KING && cell.figure.color === color) {
+                    kingCell = cell;
+                    break;
+                }
+            }
+            if (kingCell) break;
+        }
+    
+        if (!kingCell) {
+            throw new Error(`Король цвета ${color} не найден на доске.`);
+        }
+    
+        // Проверить, атакуют ли короля фигуры противника
+        for (let i = 0; i < this.cells.length; i++) {
+            for (let j = 0; j < this.cells[i].length; j++) {
+                const cell = this.cells[i][j];
+                if (cell.figure && cell.figure.color !== color) {
+                    if (cell.figure.canMove(kingCell)) {
+                        return true;
+                    }
+                }
+            }
+        }
+    
+        return false;
+    }
+    
     public getCopyBoard(): Board {
         const newBoard = new Board();
         newBoard.cells = this.cells;

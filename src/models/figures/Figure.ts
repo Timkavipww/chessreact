@@ -1,5 +1,5 @@
 import logo from "../../assets/black-king.png"
-import { Cell } from "../Cell";
+import { Cell } from '../Cell';
 import { Colors } from "../Colors";
 
 export enum FigureNames {
@@ -37,6 +37,7 @@ export class Figure {
         return true;
     }
     moveFigure(target:Cell) {
-        target.x;
+        
+        this.cell = target;
     }
 }

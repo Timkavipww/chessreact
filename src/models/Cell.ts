@@ -111,18 +111,36 @@ export class Cell {
         ? this.board.lostBlackFigures.push(figure)
         : this.board.lostWhiteFigures.push(figure);
     }
-
     moveFigure(target: Cell) {
-        if(this.figure && this.figure.canMove(target)) {
-            this.figure.moveFigure(target);
-               
-            if(target.figure) {
-                this.addLostFigure(target.figure);
+        if (this.figure && this.figure.canMove(target)) {
+            // Сохраняем текущее состояние
+            const sourceFigure = this.figure;
+            const targetFigure = target.figure;
+    
+            // Выполняем временный ход
+            target.setFigure(this.figure);
+            this.figure = null;
+    
+            // Проверяем, не оставляет ли этот ход короля под шахом
+            const isKingInCheck = this.board.isCheck(sourceFigure.color);
+    
+            // Откатываем ход
+            this.figure = sourceFigure;
+            target.figure = targetFigure;
+    
+            if (isKingInCheck) {
+                console.log("Невозможно сделать ход: король под шахом!");
+                return;
             }
-
+    
+            // Окончательно выполняем ход
+            this.figure.moveFigure(target);
+            if (targetFigure) {
+                this.addLostFigure(targetFigure);
+            }
             target.setFigure(this.figure);
             this.figure = null;
         }
-
     }
+    
 }
