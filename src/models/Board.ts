@@ -32,7 +32,7 @@ export class Board {
         // Найти клетку с королем указанного цвета
         for (let i = 0; i < this.cells.length; i++) {
             for (let j = 0; j < this.cells[i].length; j++) {
-                const cell = this.cells[i][j];
+                const cell = this.cells[j][i];
                 if (cell.figure?.name === FigureNames.KING && cell.figure.color === color) {
                     kingCell = cell;
                     break;
